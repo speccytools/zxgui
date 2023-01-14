@@ -1,0 +1,71 @@
+version: 1
+scenes:
+  welcome:
+    - name: hello_message
+      type: label
+      boundaries: 13, 1, 15, 1
+      title: "Hello, zxgui!"
+      color: 69
+      flags: 0
+    - name: user_name_title
+      type: label
+      boundaries: 8, 6, 16, 1
+      title: "What's your name?"
+      color: 7
+      flags: 0
+    - name: user_name_edit
+      type: edit
+      focus: true
+      boundaries: 8, 7, 16, 1
+      buffer: username
+      buffer_size: 64
+    - name: connect_btn
+      type: button
+      boundaries: 14, 10, 8, 1
+      key: 13
+      icon: GUI_ICON_RETURN
+      title: "Next"
+      callback: on_next_pressed
+  likes:
+    - name: hello_username_message
+      type: label
+      boundaries: 13, 1, 15, 1
+      buffer: hello_username
+      buffer_size: 128
+      color: INK_GREEN | BRIGHT
+      flags: 0
+    - name: hello_username_hint
+      type: label
+      boundaries: 11, 3, 15, 1
+      title: "What do you like?"
+      color: INK_WHITE
+      flags: 0
+    - name: what_to_like
+      type: select
+      focus: true
+      boundaries: 7, 5, 15, 4
+      obtain_data: get_like_data
+      selected: on_like_selected
+      options_capacity: 10
+      user: "NULL"
+    - name: i_like
+      type: button
+      key: 13
+      icon: GUI_ICON_RETURN
+      callback: proceed_with_like
+      boundaries: 10, 10, 15, 1
+      buffer: i_like_what
+      buffer_size: 128
+      color: INK_CYAN | BRIGHT
+      flags: 0
+  picture:
+    - name: thats_all
+      type: label
+      boundaries: 13, 1, 15, 1
+      title: "That's all!"
+      color: 69
+      flags: 0
+    - name: pic
+      type: image
+      boundaries: 10, 6, 12, 2
+      generate: ../leaves.png

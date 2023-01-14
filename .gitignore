@@ -1,0 +1,5 @@
+*.inc.h
+*.img.h
+.idea
+*.tap
+cmake-*

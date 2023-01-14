@@ -1,0 +1,107 @@
+{
+  "id":  "http://some.site.somewhere/entry-schema#",
+  "$schema":  "http://json-schema-org/draft-06/schema#",
+  "type":  "object",
+  "required":  [ "version", "scenes" ],
+  "properties":  {
+    "version":  {
+      "type":  "number"
+    },
+    "scenes":  {
+      "type": "object",
+      "description": "GUI Scenes",
+      "patternProperties": {
+        ".": {
+          "type":  "array",
+          "description": "A scene",
+          "minItems":  1,
+          "items": {
+            "type": "object",
+            "required": [ "name", "type", "boundaries" ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "A name of component, going to be a static C variable",
+                "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["label", "edit", "button", "select", "image"]
+              },
+              "boundaries": {
+                "type": "string",
+                "description": "x, y, width, height",
+                "pattern": "^.+?,\\s?.+?,\\s?.+?,\\s?.+?$"
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": { "type": { "const": "label" } }
+                },
+                "then": {
+                  "properties": {
+                    "color": {
+                      "description": "C expression"
+                    },
+                    "flags": {
+                      "type": "number"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "buffer": {
+                      "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                    },
+                    "buffer_size": {
+                      "type": "number"
+                    }
+                  },
+                  "required": ["color", "flags"]
+                }
+              },
+              {
+                "if": {
+                  "properties": { "type": { "const": "button" } }
+                },
+                "then": {
+                  "properties": {
+                    "key": {
+                      "type": "number"
+                    },
+                    "icon": {
+                      "description": "C expression"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "callback": {
+                      "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                    }
+                  },
+                  "required": ["key", "icon", "title", "callback"]
+                }
+              },
+              {
+                "if": {
+                  "properties": { "type": { "const": "edit" } }
+                },
+                "then": {
+                  "properties": {
+                    "buffer": {
+                      "pattern": "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                    },
+                    "buffer_size": {
+                      "type": "number"
+                    }
+                  },
+                  "required": ["buffer", "buffer_size"]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
