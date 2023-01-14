@@ -3,7 +3,9 @@
 A lightweight GUI framework for your ZX Spectrum program.
 It allows you to have simple scenes with buttons, labels, edits, images and selects.
 
-See [gui_example.tap](https://github.com/speccytools/zxgui/files/10418537/gui_example.tap.zip)
+https://user-images.githubusercontent.com/1666014/212490226-d91f1fb4-af73-4726-9777-e61b3156174a.mov
+
+See [gui_example.tap](https://github.com/speccytools/zxgui/files/10418537/gui_example.tap.zip) for the recording above
 
 ## Dependencies
 
