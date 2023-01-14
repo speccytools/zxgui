@@ -1,7 +1,7 @@
 # ZXGUI
 
 A lightweight GUI framework for your ZX Spectrum program.
-It allows you to have simple scenes with buttons, labels, edits, images and selects.
+It allows you to have simple scenes with buttons, labels, edits, images and selects. It uses [YAML](./example/src/welcome.yaml) files to specify objects on scene.
 
 https://user-images.githubusercontent.com/1666014/212490226-d91f1fb4-af73-4726-9777-e61b3156174a.mov
 
