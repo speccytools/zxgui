@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.17)
 
 file(GLOB_RECURSE GUI_ASM_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.asm")
 file(GLOB_RECURSE GUI_C_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
