@@ -12,6 +12,11 @@ void _label_render()
 
     object_validate();
 
+    if (this_flags & GUI_FLAG_HIDDEN)
+    {
+        return;
+    }
+
     static char* c;
     c = (char*)self()->title;
     if (*c == '\0')
