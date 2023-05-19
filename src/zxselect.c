@@ -59,7 +59,7 @@ void _select_render()
             this_w = this_basics.w;
             this_x = this_basics.x;
 
-            if (o->icon)
+            if (o->icon_color)
             {
                 this_w--;
                 this_x++;
@@ -101,7 +101,7 @@ void _select_render()
         yy_offset = this_basics.y + (selection_offset % this_basics.h);
 
         zxgui_screen_color(COLOR_INV);
-        if (index[self()->selection]->icon)
+        if (index[self()->selection]->icon_color)
         {
             zxgui_screen_recolor(this_basics.x + 1, yy_offset, ww, 1);
         }
@@ -114,7 +114,7 @@ void _select_render()
             yy_offset = this_basics.y + (last_offset % this_basics.h);
 
             zxgui_screen_color(COLOR);
-            if (index[self()->last_selection]->icon)
+            if (index[self()->last_selection]->icon_color)
             {
                 zxgui_screen_recolor(this_basics.x + 1, yy_offset, ww, 1);
             }
@@ -143,7 +143,7 @@ void zxgui_select_change_option(struct gui_select_t* select, uint8_t i) ZXGUI_CD
 
 uint8_t _select_event(enum gui_event_type event_type, void* event)
 {
-    if (current_scene->focus != (void*)this)
+    if (current_scene->focus != NULL && current_scene->focus != (void*)this)
         return 0;
 
     switch (event_type)
@@ -161,7 +161,7 @@ uint8_t _select_event(enum gui_event_type event_type, void* event)
                         zxgui_select_change_option(self(), self()->selection - 1);
                         object_invalidate(GUI_FLAG_DIRTY_INTERNAL);
                     }
-                    break;
+                    return 1;
                 }
                 case GUI_KEY_CODE_DOWN:
                 {
@@ -170,7 +170,7 @@ uint8_t _select_event(enum gui_event_type event_type, void* event)
                         zxgui_select_change_option(self(), self()->selection + 1);
                         object_invalidate(GUI_FLAG_DIRTY_INTERNAL);
                     }
-                    break;
+                    return 1;
                 }
             }
 

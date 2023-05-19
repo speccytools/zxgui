@@ -32,7 +32,7 @@ void _edit_render()
     {
         object_validate();
 
-        col = (current_scene->focus == this) ? (BRIGHT | INK_YELLOW | PAPER_BLACK) : (BRIGHT | INK_WHITE | PAPER_BLACK);
+        col = (current_scene->focus == NULL || current_scene->focus == this) ? (BRIGHT | INK_YELLOW | PAPER_BLACK) : (BRIGHT | INK_WHITE | PAPER_BLACK);
 
         zxgui_screen_color(PAPER_BLACK | INK_BLACK);
         text_ui_color(col);
@@ -103,7 +103,7 @@ void _edit_render()
         blink = BLINK_INTERVAL;
     }
 
-    if (current_scene->focus == this)
+    if (current_scene->focus == NULL || current_scene->focus == this)
     {
         if (blink++ > BLINK_INTERVAL)
         {
@@ -125,7 +125,7 @@ void _edit_render()
 
 uint8_t _edit_event(enum gui_event_type event_type, void* event)
 {
-    if (current_scene->focus != this)
+    if (current_scene->focus != NULL && current_scene->focus != this)
         return 0;
 
     switch (event_type)
