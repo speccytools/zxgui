@@ -3,6 +3,7 @@ EXTERN _text_y
 EXTERN asm_zx_cxy2saddr
 EXTERN _font_4x8_80columns
 PUBLIC _text_ui_write
+PUBLIC _text_ui_write_buffer
 
 defc font = _font_4x8_80columns
 
@@ -12,6 +13,14 @@ _text_ui_get_screen_addr:
     ld a, (_text_y)
     ld h, a
     jp asm_zx_cxy2saddr             ; hl now holds a screen address
+
+_text_ui_write_buffer:
+    pop de                          ; ret
+    pop ix                          ; pop the amount into ix
+    pop bc                          ; pop string address into bc
+    pop hl                          ; pop buffer address
+    push de                         ; ret
+    jr _text_ui_write_loop
 
 ; stack: string to write
 ; stack: amount to write
