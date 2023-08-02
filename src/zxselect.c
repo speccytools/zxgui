@@ -155,6 +155,7 @@ uint8_t _select_event(enum gui_event_type event_type, void* event)
             switch (ev->key)
             {
                 case GUI_KEY_CODE_UP:
+                case 'q':
                 {
                     if (self()->selection)
                     {
@@ -164,6 +165,7 @@ uint8_t _select_event(enum gui_event_type event_type, void* event)
                     return 1;
                 }
                 case GUI_KEY_CODE_DOWN:
+                case 'a':
                 {
                     if (self()->selection < self()->options_size - 1)
                     {
