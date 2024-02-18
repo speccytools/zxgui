@@ -111,11 +111,11 @@ void _edit_render()
 
             if (self()->cursor_even)
             {
-                _render_blink_even(self()->cursor_pixels_addr);
+                render_blink_even(self()->cursor_pixels_addr);
             }
             else
             {
-                _render_blink_odd(self()->cursor_pixels_addr);
+                render_blink_odd(self()->cursor_pixels_addr);
             }
 
             (*self()->cursor_color_addr) = INK_YELLOW | BRIGHT | PAPER_BLACK;

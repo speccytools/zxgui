@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "zxgui.h"
 
-void _render_blink_even(uint8_t *addr) __z88dk_fastcall __naked
+void render_blink_even(uint8_t *addr) __z88dk_fastcall __naked
 {
 #asm
     ld b, 8
@@ -16,7 +16,7 @@ _render_blink_even_loop:
 #endasm
 }
 
-void _render_blink_odd(uint8_t *addr) __z88dk_fastcall __naked
+void render_blink_odd(uint8_t *addr) __z88dk_fastcall __naked
 {
 #asm
     ld b, 8
@@ -31,7 +31,7 @@ _render_blink_odd_loop:
 #endasm
 }
 
-static void _clear_blink_even(uint8_t *addr) __z88dk_fastcall __naked
+void clear_blink_even(uint8_t *addr) __z88dk_fastcall __naked
 {
 #asm
     ld b, 8
@@ -46,7 +46,7 @@ _clear_blink_even_loop:
 #endasm
 }
 
-static void _clear_blink_odd(uint8_t *addr) __z88dk_fastcall __naked
+void clear_blink_odd(uint8_t *addr) __z88dk_fastcall __naked
 {
 #asm
     ld b, 8
@@ -65,10 +65,10 @@ void clear_blink(struct gui_edit_t* this) __z88dk_fastcall
 {
     if (this->cursor_even)
     {
-        _clear_blink_even(this->cursor_pixels_addr);
+        clear_blink_even(this->cursor_pixels_addr);
     }
     else
     {
-        _clear_blink_odd(this->cursor_pixels_addr);
+        clear_blink_odd(this->cursor_pixels_addr);
     }
 }

@@ -9,11 +9,37 @@ uint8_t _i;
 uint8_t* _c;
 uint8_t* _addr;
 
-void zxgui_clear(void)
+void zxgui_clear(void) __naked
 {
-    zx_border(INK_BLACK);
-    zx_colour(BRIGHT | INK_GREEN | PAPER_BLACK);
-    zx_cls();
+#asm
+    push de
+    push bc
+    push hl
+
+    ; black border
+    ld a, 0
+    out (254),a
+
+    ; clear color data
+    ld hl, $5800
+    ld de, $5801
+    ld bc, 767
+    ld (hl), 0x44
+    ldir
+
+    ; clear screen
+    ld hl, $4000
+    ld de, $4001
+    ld bc, 6911
+    ld (hl), 0
+    ldir
+
+    pop hl
+    pop bc
+    pop de
+
+    ret
+#endasm
 }
 
 void zxgui_image(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const uint8_t* source, const uint8_t* colors) __z88dk_callee

@@ -33,8 +33,8 @@ struct gui_edit_t;
 #define BRIGHT         0x40
 #define FLASH          0x80
 
-extern void _render_blink_even(uint8_t *addr) __z88dk_fastcall __naked;
-extern void _render_blink_odd(uint8_t *addr) __z88dk_fastcall __naked;
+extern void render_blink_even(uint8_t *addr) __z88dk_fastcall __naked;
+extern void render_blink_odd(uint8_t *addr) __z88dk_fastcall __naked;
 extern void clear_blink(struct gui_edit_t* this) __z88dk_fastcall;
 
 extern uint8_t _j;

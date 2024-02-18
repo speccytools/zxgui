@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
 
-# No debug info even for debug build
-set(CMAKE_C_FLAGS_DEBUG "" CACHE INTERNAL "")
-set(CMAKE_ASM_FLAGS_DEBUG "" CACHE INTERNAL "")
-
 file(GLOB_RECURSE GUI_ASM_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.asm")
 file(GLOB_RECURSE GUI_C_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 
