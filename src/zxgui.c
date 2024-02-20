@@ -4,6 +4,7 @@
 #include <string.h>
 
 uint8_t screen_color = 0;
+uint8_t screen_border = 0;
 uint8_t _j;
 uint8_t _i;
 uint8_t* _c;
@@ -17,7 +18,7 @@ void zxgui_clear(void) __naked
     push hl
 
     ; black border
-    ld a, 0
+    ld a, (_screen_border)
     out (254),a
 
     ; clear color data

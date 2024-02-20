@@ -224,6 +224,7 @@ struct gui_scene_t
 
 extern struct gui_scene_t* current_scene;
 extern uint8_t screen_color;
+extern uint8_t screen_border;
 
 extern void zxgui_clear(void);
 extern void zxgui_scene_init(struct gui_scene_t* scene) __z88dk_fastcall;
