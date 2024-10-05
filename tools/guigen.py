@@ -11,7 +11,7 @@ class GenerateError(Exception):
 
 def boundaries(o) -> str:
     b = o["boundaries"]
-    m = re.match(re.compile("(.+?),\\s?(.+?),\\s?(.+?),\\s?(.+?)"), b)
+    m = re.match(re.compile("(.+?),\\s?(.+?),\\s?(.+?),\\s?(.+)"), b)
     if m:
         return "{0}, {1}, {2}, {3}".format(m.group(1), m.group(2), m.group(3), m.group(4))
     raise GenerateError("Incorrect boundaries: {0}".format(b))
