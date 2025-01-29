@@ -40,8 +40,11 @@ void _select_render()
 
     if (this_flags & GUI_FLAG_DIRTY)
     {
-        zxgui_screen_color(COLOR);
-        zxgui_screen_clear(this_basics.x, this_basics.y, this_basics.w, this_basics.h);
+        if ((this_flags & GUI_FLAG_DIRTY_DONT_CLEAR) == 0)
+        {
+            zxgui_screen_color(COLOR);
+            zxgui_screen_clear(this_basics.x, this_basics.y, this_basics.w, this_basics.h);
+        }
 
         static uint8_t offset;
         static uint8_t y_offset;
@@ -66,7 +69,7 @@ void _select_render()
                 zxgui_image(this_basics.x, y_offset, 1, 1, o->icon, &o->icon_color);
             }
 
-            if (i == self()->selection)
+            if ((current_scene->focus == this) && (i == self()->selection))
             {
                 text_ui_color(COLOR_INV);
                 zxgui_screen_color(COLOR_INV);
@@ -128,6 +131,12 @@ void _select_render()
     object_validate();
 }
 
+void zxgui_select_trigger_change_event(struct gui_select_t* select) ZXGUI_CDECL
+{
+    struct gui_select_option_t** index = (struct gui_select_option_t**) select->obtain_data_cb();
+    select->selected(index[select->selection]);
+}
+
 void zxgui_select_change_option(struct gui_select_t* select, uint8_t i) ZXGUI_CDECL
 {
     if (select->selection == i)
@@ -137,8 +146,7 @@ void zxgui_select_change_option(struct gui_select_t* select, uint8_t i) ZXGUI_CD
     select->last_selection = select->selection;
     select->selection = i;
     select->base.flags |= GUI_FLAG_DIRTY_INTERNAL;
-    struct gui_select_option_t** index = (struct gui_select_option_t**) select->obtain_data_cb();
-    select->selected(index[i]);
+    zxgui_select_trigger_change_event(select);
 }
 
 uint8_t _select_event(enum gui_event_type event_type, void* event)

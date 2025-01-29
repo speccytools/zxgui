@@ -36,6 +36,8 @@ enum gui_event_type {
 };
 
 enum gui_event_keycodes {
+    GUI_KEY_CODE_LEFT = 8,
+    GUI_KEY_CODE_RIGHT = 9,
     GUI_KEY_CODE_DOWN = 10,
     GUI_KEY_CODE_UP = 11,
     GUI_KEY_CODE_BACKSPACE = 12,
@@ -63,10 +65,11 @@ typedef uint8_t (*gui_event_f)(enum gui_event_type event_type, void* event);
 
 #define GUI_FLAG_DIRTY (0x01u)
 #define GUI_FLAG_DIRTY_INTERNAL (0x02u)
-#define GUI_FLAG_MULTILINE (0x04u)
-#define GUI_FLAG_HIDDEN (0x08u)
-#define GUI_FLAG_SYM (0x10u)
-#define GUI_FLAGS_CLEAR_DIRTY (0xFC)
+#define GUI_FLAG_DIRTY_DONT_CLEAR (0x04u)
+#define GUI_FLAG_MULTILINE (0x08u)
+#define GUI_FLAG_HIDDEN (0x10u)
+#define GUI_FLAG_SYM (0x20u)
+#define GUI_FLAGS_CLEAR_DIRTY (0xF8)
 
 struct gui_object_basics_t
 {
@@ -196,6 +199,7 @@ struct gui_scene_t
 {
     struct gui_object_t* child;
     struct gui_object_t* focus;
+    gui_event_f on_event;
 };
 
 extern struct gui_scene_t* current_scene;
@@ -220,6 +224,7 @@ extern void zxgui_image(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const uint8_
 extern uint8_t* zxgui_select_add_option(struct gui_select_t* select, const char* option,
     uint8_t option_len, uint16_t user_data_amount, uint8_t* icon, uint8_t icon_color) ZXGUI_CDECL;
 extern void zxgui_select_change_option(struct gui_select_t* select, uint8_t option) ZXGUI_CDECL;
+extern void zxgui_select_trigger_change_event(struct gui_select_t* select) ZXGUI_CDECL;
 
 extern uint8_t zxgui_label_text_height(uint8_t w, const char* text, uint16_t len, uint8_t max_height) ZXGUI_CDECL;
 

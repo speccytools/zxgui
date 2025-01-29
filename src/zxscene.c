@@ -23,6 +23,7 @@ void zxgui_scene_init(struct gui_scene_t* scene) __z88dk_fastcall
 {
     scene->child = NULL;
     scene->focus = NULL;
+    scene->on_event = NULL;
 }
 
 void zxgui_scene_add(struct gui_scene_t* scene, void* object) __z88dk_callee
@@ -76,6 +77,11 @@ void zxgui_scene_set_focus(struct gui_scene_t* scene, void* object) __z88dk_call
 
 void zxgui_scene_dispatch_event(enum gui_event_type event_type, void* event) __z88dk_callee
 {
+    if (current_scene->on_event && current_scene->on_event(event_type, event))
+    {
+        return;
+    }
+
     struct gui_object_t* child = current_scene->child;
     while (child)
     {
