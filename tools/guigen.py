@@ -48,8 +48,9 @@ def label(my_type, o, prev, generate_buffer, generate_callback) -> str:
         title = "\"{0}\"".format(o["title"])
     elif "buffer" in o:
         title = o["buffer"]
-        buffer_size = o["buffer_size"]
-        generate_buffer(title, buffer_size)
+        if "buffer_size" in o:
+            buffer_size = o["buffer_size"]
+            generate_buffer(title, buffer_size)
     else:
         raise GenerateError("Either title or buffer/buffer_size has to be specified")
     return "static struct gui_label_t {0} = zxgui_label_init({1}, {2}, {3}, {4}, {5});".format(

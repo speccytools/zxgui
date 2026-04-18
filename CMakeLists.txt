@@ -27,4 +27,17 @@ function(zxgui_generate_tiles)
     target_include_directories(zxgui_tiles PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 endfunction()
 
+# usage example
+# zxgui_generate_image(${CMAKE_CURRENT_SOURCE_DIR}/img/splash.png splash)
+function(zxgui_generate_image IMAGE NAME)
+    set(IMAGE_HEADER ${CMAKE_CURRENT_BINARY_DIR}/${NAME}.h)
+    add_custom_command(
+        OUTPUT ${IMAGE_HEADER}
+        COMMAND /bin/sh -c "python3 \"${CMAKE_CURRENT_FUNCTION_LIST_DIR}/tools/png2c.py\" \"${IMAGE}\" --no-print-string --dump-color --id=${NAME} --preferred-bg=black > \"${IMAGE_HEADER}\""
+        DEPENDS ${IMAGE} ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/tools/png2c.py
+        VERBATIM
+    )
+    add_custom_target(${NAME}_image_gen ALL DEPENDS ${IMAGE_HEADER})
+endfunction()
+
 set(ZXGUI_LIBRARIES zxgui zxgui_tiles CACHE STRING "A list of zxgui libraries")
