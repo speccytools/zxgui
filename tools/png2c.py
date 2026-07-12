@@ -80,8 +80,8 @@ def process_image(image_file, full_width, parser, bg_color, fg_color, dump_color
         parser.error("only RGB(A) images are supported")
 
     # so we support both RGB and RGBA images
-    data = list(zip(list(image.getdata(0)), list(
-        image.getdata(1)), list(image.getdata(2))))
+    data = list(zip(list(image.get_flattened_data(0)), list(
+        image.get_flattened_data(1)), list(image.get_flattened_data(2))))
 
     for c in data:
         if c not in COLORS:

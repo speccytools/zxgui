@@ -3,3 +3,4 @@
 .idea
 *.tap
 cmake-*
+/src/blink.o
