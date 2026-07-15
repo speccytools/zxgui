@@ -103,7 +103,14 @@ void _select_render()
 
         yy_offset = this_basics.y + (selection_offset % this_basics.h);
 
-        zxgui_screen_color(COLOR_INV);
+        if (current_scene->focus == this)
+        {
+            zxgui_screen_color(COLOR_INV);
+        }
+        else
+        {
+            zxgui_screen_color(COLOR);
+        }
         if (index[self()->selection]->icon_color)
         {
             zxgui_screen_recolor(this_basics.x + 1, yy_offset, ww, 1);
