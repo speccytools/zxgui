@@ -72,13 +72,16 @@ def edit(my_type, o, prev, generate_buffer, generate_callback) -> str:
 def select(my_type, o, prev, generate_buffer, generate_callback) -> str:
     name = o["name"]
     obtain_data_cb = o["obtain_data"]
+    release_data_cb = o.get("release_data", "NULL")
     selected_cb = o["selected"]
     options_capacity = o["options_capacity"]
     user = o["user"]
     generate_callback(obtain_data_cb, "void", "uint8_t*")
+    if release_data_cb != "NULL":
+        generate_callback(release_data_cb, "void", "void")
     generate_callback(selected_cb, "struct gui_select_option_t* selected", "void")
-    return "static struct gui_select_t {0} = zxgui_select_init({1}, {2}, {3}, {4}, {5}, {6});".format(
-        name, prev_base(prev), boundaries(o), obtain_data_cb, options_capacity, user, selected_cb
+    return "static struct gui_select_t {0} = zxgui_select_init({1}, {2}, {3}, {4}, {5}, {6}, {7});".format(
+        name, prev_base(prev), boundaries(o), obtain_data_cb, release_data_cb, options_capacity, user, selected_cb
     )
 
 

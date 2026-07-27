@@ -9,6 +9,14 @@
 #define COLOR (INK_YELLOW | BRIGHT | PAPER_BLACK)
 #define COLOR_INV (INK_BLACK | BRIGHT | PAPER_YELLOW)
 
+static void select_release_data(struct gui_select_t* select)
+{
+    if (select->release_data_cb)
+    {
+        select->release_data_cb();
+    }
+}
+
 void _select_render()
 {
     if (!is_object_invalidated())
@@ -136,12 +144,14 @@ void _select_render()
     }
 
     object_validate();
+    select_release_data(self());
 }
 
 void zxgui_select_trigger_change_event(struct gui_select_t* select) ZXGUI_CDECL
 {
     struct gui_select_option_t** index = (struct gui_select_option_t**) select->obtain_data_cb();
     select->selected(index[select->selection]);
+    select_release_data(select);
 }
 
 void zxgui_select_change_option(struct gui_select_t* select, uint8_t i) ZXGUI_CDECL
@@ -246,5 +256,7 @@ uint8_t* zxgui_select_add_option(struct gui_select_t* select, const char* option
     memcpy(o->icon, icon, 8);
     o->icon_color = icon_color;
 
-    return o->user;
+    uint8_t* user = o->user;
+    select_release_data(select);
+    return user;
 }

@@ -141,6 +141,7 @@ extern uint8_t _edit_event(enum gui_event_type event_type, void* event);
 
 struct gui_select_t;
 typedef uint8_t* (*gui_select_obtain_data_f)(void);
+typedef void (*gui_select_release_data_f)(void);
 
 struct gui_select_option_t
 {
@@ -154,6 +155,7 @@ struct gui_select_t
 {
     struct gui_object_t base;
     gui_select_obtain_data_f obtain_data_cb;
+    gui_select_release_data_f release_data_cb;
     void* user;
     uint16_t buffer_offset;
     gui_select_selected selected;
@@ -166,8 +168,8 @@ struct gui_select_t
 extern void _select_render();
 extern uint8_t _select_event(enum gui_event_type event_type, void* event);
 
-#define zxgui_select_init(next, x, y, w, h, obtain_data_cb, options_capacity, user, selected_cb) \
-    { zxgui_base_init(next, x, y, w, h, _select_render, _select_event, GUI_FLAG_DIRTY), obtain_data_cb, user, \
+#define zxgui_select_init(next, x, y, w, h, obtain_data_cb, release_data_cb, options_capacity, user, selected_cb) \
+    { zxgui_base_init(next, x, y, w, h, _select_render, _select_event, GUI_FLAG_DIRTY), obtain_data_cb, release_data_cb, user, \
       options_capacity * sizeof(struct gui_select_option_t*), selected_cb, 0, 0, options_capacity, 0}
 
 struct gui_image_t
